@@ -1,0 +1,392 @@
+diff --git a/.travis.yml b/.travis.yml
+index e01a71544..c1d2c0363 100644
+--- a/.travis.yml
++++ b/.travis.yml
+@@ -69,14 +69,14 @@ matrix:
+     - sudo: required
+       jdk: "oraclejdk8"
+       dist: trusty
+-      env: PYTHON="3" SPARKR="true" PROFILE="-Pspark-2.2 -Pscalding -Phelium-dev -Pexamples -Pscala-2.11" BUILD_FLAG="package -Pbuild-distr -DskipRat" TEST_FLAG="verify -Pusing-packaged-distr -DskipRat" MODULES="-pl ${INTERPRETERS}" TEST_PROJECTS="-Dtests.to.exclude=**/SparkIntegrationTest.java,**/ZeppelinSparkClusterTest.java,**/org/apache/zeppelin/spark/*,**/HeliumApplicationFactoryTest.java -DfailIfNoTests=false"
++      env: PYTHON="3" SPARKR="true" PROFILE="-Pspark-2.2 -Pscalding -Phelium-dev -Pexamples -Pspark-scala--2.11" BUILD_FLAG="package -Pbuild-distr -DskipRat" TEST_FLAG="verify -Pusing-packaged-distr -DskipRat" MODULES="-pl ${INTERPRETERS}" TEST_PROJECTS="-Dtests.to.exclude=**/SparkIntegrationTest.java,**/ZeppelinSparkClusterTest.java,**/org/apache/zeppelin/spark/*,**/HeliumApplicationFactoryTest.java -DfailIfNoTests=false"
+ 
+     # Test selenium with spark module for 1.6.3
+     - jdk: "oraclejdk8"
+       dist: trusty
+       addons:
+         firefox: "31.0"
+-      env: CI="true" PYTHON="2" SCALA_VER="2.10" SPARK_VER="1.6.3" HADOOP_VER="2.6" PROFILE="-Pspark-1.6 -Phadoop2 -Phadoop-2.6 -Phelium-dev -Pexamples -Pintegration" BUILD_FLAG="install -DskipTests -DskipRat" TEST_FLAG="verify -DskipRat" TEST_PROJECTS="-pl .,zeppelin-integration -DfailIfNoTests=false"
++      env: CI="true" PYTHON="2" SCALA_VER="2.10" SPARK_VER="1.6.3" HADOOP_VER="2.6" PROFILE="-Pspark-1.6 -Phadoop2 -Phadoop-2.6 -Phelium-dev -Pexamples -Pintegration -Pspark-scala-2.12" BUILD_FLAG="install -DskipTests -DskipRat" TEST_FLAG="verify -DskipRat" TEST_PROJECTS="-pl .,zeppelin-integration -DfailIfNoTests=false"
+ 
+     # Test interpreter modules
+     - jdk: "openjdk7"
+@@ -95,7 +95,7 @@ matrix:
+     - sudo: required
+       jdk: "oraclejdk8"
+       dist: trusty
+-      env: PYTHON="2" SCALA_VER="2.11" PROFILE="-Pspark-2.3 -Pscala-2.11 -Phadoop2 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest23,SparkIntegrationTest23,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++      env: PYTHON="2" SCALA_VER="2.12" PROFILE="-Pspark-2.3 -Pscala-2.12 -Phadoop2 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest24,SparkIntegrationTest24,JdbcIntegrationTest,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
+ 
+     # ZeppelinSparkClusterTest22, SparkIntegrationTest22, Unit test of Spark 2.2
+     - sudo: required
+@@ -107,19 +107,27 @@ matrix:
+     - sudo: required
+       jdk: "oraclejdk8"
+       dist: trusty
+-      env: PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-2.1 -Phadoop2 -Pscala-2.10 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest21,SparkIntegrationTest21,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++      env: PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-2.2 -Pspark-scala-2.12 -Phadoop2 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest22,SparkIntegrationTest22,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
+ 
+     # ZeppelinSparkClusterTest20, SparkIntegrationTest20, Unit test of Spark 2.0
+     - sudo: required
+       jdk: "oraclejdk8"
+       dist: trusty
+-      env: PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-2.0 -Phadoop2 -Pscala-2.10 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest20,SparkIntegrationTest20,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++      env: PYTHON="3" SCALA_VER="2.12" PROFILE="-Pspark-2.1 -Phadoop2 -Pspark-scala-2.12 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest21,SparkIntegrationTest21,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
+ 
+     # ZeppelinSparkClusterTest16, SparkIntegrationTest16, Unit test of Spark 1.6
+     - sudo: required
+       jdk: "oraclejdk8"
+       dist: trusty
+-      env: PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-1.6 -Phadoop2 -Pscala-2.10 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest16,SparkIntegrationTest16,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++      # env: PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-1.6 -Phadoop2 -Pscala-2.10 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-server,zeppelin-web,spark/interpreter,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest16,SparkIntegrationTest16,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++      env: BUILD_PLUGINS="true" PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-2.0 -Phadoop2 -Pspark-scala-2.10 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-interpreter-integration,zeppelin-web,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest20,SparkIntegrationTest20,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++      
++    # ZeppelinSparkClusterTest16, SparkIntegrationTest16, Unit test of Spark 1.6  (Scala-2.10)
++    - sudo: required
++      jdk: "oraclejdk8"
++      dist: trusty
++      env: BUILD_PLUGINS="true" PYTHON="3" SCALA_VER="2.10" PROFILE="-Pspark-1.6 -Phadoop2 -Pspark-scala-2.10 -Pintegration" SPARKR="true" BUILD_FLAG="install -DskipTests -DskipRat -am" TEST_FLAG="test -DskipRat -am" MODULES="-pl zeppelin-interpreter-integration,zeppelin-web,spark/spark-dependencies" TEST_PROJECTS="-Dtest=ZeppelinSparkClusterTest16,SparkIntegrationTest16,org.apache.zeppelin.spark.* -DfailIfNoTests=false"
++
+ 
+       # Test python/pyspark with python 2, livy 0.5
+     - sudo: required
+diff --git a/dev/change_scala_version.sh b/dev/change_scala_version.sh
+index 0ccfe7e26..76ed3b274 100755
+--- a/dev/change_scala_version.sh
++++ b/dev/change_scala_version.sh
+@@ -17,9 +17,9 @@
+ # limitations under the License.
+ #
+ 
+-set -e
++set -x
+ 
+-VALID_VERSIONS=( 2.10 2.11 )
++VALID_VERSIONS=( 2.10 2.11 2.12)
+ 
+ usage() {
+   echo "Usage: $(basename $0) [-h|--help] <version>
+@@ -44,12 +44,12 @@ check_scala_version() {
+ 
+ check_scala_version "${TO_VERSION}"
+ 
+-if [ "${TO_VERSION}" = "2.11" ]; then
+-  FROM_VERSION="2.10"
+-  SCALA_LIB_VERSION="2.11.7"
++if [ "${TO_VERSION}" = "2.12" ]; then
++  FROM_VERSION="2.11"
++  SCALA_LIB_VERSION="2.12.8"
+ else
+   FROM_VERSION="2.11"
+-  SCALA_LIB_VERSION="2.10.5"
++  SCALA_LIB_VERSION="2.12.8"
+ fi
+ 
+ sed_i() {
+diff --git a/dev/publish_release.sh b/dev/publish_release.sh
+index 83db3053f..0200e8b18 100755
+--- a/dev/publish_release.sh
++++ b/dev/publish_release.sh
+@@ -94,8 +94,8 @@ function publish_snapshot_to_maven() {
+   mvn --settings $tmp_settings -Dmaven.repo.local="${tmp_repo}" -Pbeam -DskipTests \
+     $PUBLISH_PROFILES -Drat.skip=true deploy
+ 
+-  "${BASEDIR}/change_scala_version.sh" 2.11
+-  mvn -Pscala-2.11 --settings $tmp_settings -Dmaven.repo.local="${tmp_repo}" -Pbeam -DskipTests \
++  "${BASEDIR}/change_scala_version.sh" 2.12
++  mvn -Pscala-2.12 --settings $tmp_settings -Dmaven.repo.local="${tmp_repo}" -Pbeam -DskipTests \
+     $PUBLISH_PROFILES -Drat.skip=true clean deploy
+ 
+   rm $tmp_settings
+@@ -138,16 +138,16 @@ function publish_to_maven() {
+     exit 1
+   fi
+ 
+-  # build with scala-2.11
+-  "${BASEDIR}/change_scala_version.sh" 2.11
++  # build with scala-2.12
++  "${BASEDIR}/change_scala_version.sh" 2.12
+ 
+   echo "mvn clean install -DskipTests \
+-    -Pscala-2.11 \
++    -Pscala-2.12 \
+     ${PUBLISH_PROFILES} ${PROJECT_OPTIONS}"
+-  mvn clean install -DskipTests -Pscala-2.11 \
++  mvn clean install -DskipTests -Pscala-2.12 \
+     ${PUBLISH_PROFILES} ${PROJECT_OPTIONS}
+   if [[ $? -ne 0 ]]; then
+-    echo "Build with scala 2.11 failed."
++    echo "Build with scala 2.12 failed."
+     exit 1
+   fi
+ 
+diff --git a/pom.xml b/pom.xml
+index 68d5bbdae..1171f068d 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -86,10 +86,10 @@
+ 
+   <properties>
+     <!-- language versions -->
+-    <java.version>1.7</java.version>
+-    <scala.version>2.10.5</scala.version>
+-    <scala.binary.version>2.10</scala.binary.version>
+-    <scalatest.version>2.2.4</scalatest.version>
++    <java.version>1.8</java.version>
++    <scala.version>2.12.8</scala.version>
++    <scala.binary.version>2.12</scala.binary.version>
++    <scalatest.version>3.0.7</scalatest.version>
+     <scalacheck.version>1.12.5</scalacheck.version>
+ 
+     <!-- frontend maven plugin related versions-->
+@@ -745,6 +745,14 @@
+       </properties>
+     </profile>
+ 
++    <profile>
++      <id>scala-2.12</id>
++      <properties>
++        <scala.version>2.12.8</scala.version>
++        <scala.binary.version>2.12</scala.binary.version>
++      </properties>
++    </profile>
++
+     <profile>
+       <id>vendor-repo</id>
+       <repositories>
+diff --git a/r/pom.xml b/r/pom.xml
+index 49f9c2056..d1c3dbaac 100644
+--- a/r/pom.xml
++++ b/r/pom.xml
+@@ -368,10 +368,10 @@
+     </profile>
+ 
+     <profile>
+-      <id>scala-2.11</id>
++      <id>scala-2.12</id>
+       <properties>
+-        <extra.source.dir>src/main/scala-2.11</extra.source.dir>
+-        <extra.testsource.dir>src/test/scala/scala-2.11</extra.testsource.dir>
++        <extra.source.dir>src/main/scala-2.12</extra.source.dir>
++        <extra.testsource.dir>src/test/scala/scala-2.12</extra.testsource.dir>
+       </properties>
+     </profile>
+   </profiles>
+diff --git a/spark/interpreter/pom.xml b/spark/interpreter/pom.xml
+index 321192d38..4df4b441a 100644
+--- a/spark/interpreter/pom.xml
++++ b/spark/interpreter/pom.xml
+@@ -69,8 +69,22 @@
+ 
+     <dependency>
+       <groupId>org.apache.zeppelin</groupId>
+-      <artifactId>spark-scala-2.11</artifactId>
++      <artifactId>spark-scala-2.12</artifactId>
+       <version>${project.version}</version>
++       <exclusions>
++        <exclusion>
++          <groupId>org.scala-lang</groupId>
++          <artifactId>scala-library</artifactId>
++        </exclusion>
++        <exclusion>
++          <groupId>org.scala-lang</groupId>
++          <artifactId>scala-compiler</artifactId>
++        </exclusion>
++        <exclusion>
++          <groupId>org.scala-lang</groupId>
++          <artifactId>scalap</artifactId>
++        </exclusion>
++      </exclusions>
+     </dependency>
+ 
+     <dependency>
+diff --git a/spark/interpreter/src/main/java/org/apache/zeppelin/spark/AbstractSparkInterpreter.java b/spark/interpreter/src/main/java/org/apache/zeppelin/spark/AbstractSparkInterpreter.java
+index aa1343aae..4453f22c6 100644
+--- a/spark/interpreter/src/main/java/org/apache/zeppelin/spark/AbstractSparkInterpreter.java
++++ b/spark/interpreter/src/main/java/org/apache/zeppelin/spark/AbstractSparkInterpreter.java
+@@ -18,50 +18,54 @@
+ package org.apache.zeppelin.spark;
+ 
+ import org.apache.spark.SparkContext;
+-import org.apache.spark.api.java.JavaSparkContext;
+ import org.apache.spark.sql.SQLContext;
++import org.apache.zeppelin.interpreter.BaseZeppelinContext;
+ import org.apache.zeppelin.interpreter.Interpreter;
+ import org.apache.zeppelin.interpreter.InterpreterContext;
++import org.apache.zeppelin.interpreter.InterpreterException;
++import org.apache.zeppelin.interpreter.InterpreterResult;
++import org.apache.zeppelin.interpreter.thrift.InterpreterCompletion;
+ 
+-import java.util.Properties;
++import java.util.List;
+ 
+ /**
+- * Abstract class for SparkInterpreter. For the purpose of co-exist of NewSparkInterpreter
+- * and OldSparkInterpreter
++ * This is bridge class which bridge the communication between java side and scala side.
++ * Java side reply on this abstract class which is implemented by different scala versions.
+  */
+-public abstract class AbstractSparkInterpreter extends Interpreter {
+-
+-  private SparkInterpreter parentSparkInterpreter;
+-
+-  public AbstractSparkInterpreter(Properties properties) {
+-    super(properties);
+-  }
++public abstract class AbstractSparkScalaInterpreter {
+ 
+   public abstract SparkContext getSparkContext();
+ 
+-  public abstract SQLContext getSQLContext();
++  public abstract SQLContext getSqlContext();
+ 
+   public abstract Object getSparkSession();
+ 
+-  public abstract boolean isSparkContextInitialized();
++  public abstract String getSparkUrl();
+ 
+-  public abstract SparkVersion getSparkVersion();
++  public abstract BaseZeppelinContext getZeppelinContext();
+ 
+-  public abstract JavaSparkContext getJavaSparkContext();
++  public int getProgress(InterpreterContext context) throws InterpreterException {
++    return getProgress(Utils.buildJobGroupId(context), context);
++  }
+ 
+-  public abstract void populateSparkWebUrl(InterpreterContext ctx);
++  public abstract int getProgress(String jobGroup,
++                                  InterpreterContext context) throws InterpreterException;
+ 
+-  public abstract SparkZeppelinContext getZeppelinContext();
++  public void cancel(InterpreterContext context) throws InterpreterException {
++    getSparkContext().cancelJobGroup(Utils.buildJobGroupId(context));
++  }
+ 
+-  public abstract String getSparkUIUrl();
++  public Interpreter.FormType getFormType() throws InterpreterException {
++    return Interpreter.FormType.SIMPLE;
++  }
+ 
+-  public abstract boolean isUnsupportedSparkVersion();
++  public abstract void open();
+ 
+-  public void setParentSparkInterpreter(SparkInterpreter parentSparkInterpreter) {
+-    this.parentSparkInterpreter = parentSparkInterpreter;
+-  }
++  public abstract void close();
+ 
+-  public SparkInterpreter getParentSparkInterpreter() {
+-    return parentSparkInterpreter;
+-  }
+-}
++  public abstract InterpreterResult interpret(String st, InterpreterContext context);
++
++  public abstract List<InterpreterCompletion> completion(String buf,
++                                                         int cursor,
++                                                         InterpreterContext interpreterContext);
++}
+\ No newline at end of file
+diff --git a/spark/spark-scala-parent/pom.xml b/spark/spark-scala-parent/pom.xml
+index 42e118c96..01595003a 100644
+--- a/spark/spark-scala-parent/pom.xml
++++ b/spark/spark-scala-parent/pom.xml
+@@ -36,8 +36,8 @@
+ 
+     <properties>
+         <spark.version>2.4.0</spark.version>
+-        <scala.binary.version>2.11</scala.binary.version>
+-        <scala.version>2.11.8</scala.version>
++        <scala.binary.version>2.12</scala.binary.version>
++        <scala.version>2.12.8</scala.version>
+         <scala.compile.version>${scala.binary.version}</scala.compile.version>
+     </properties>
+ 
+diff --git a/spark/spark2-shims/pom.xml b/spark/spark2-shims/pom.xml
+index 7e90b46c6..6a2503acc 100644
+--- a/spark/spark2-shims/pom.xml
++++ b/spark/spark2-shims/pom.xml
+@@ -34,7 +34,7 @@
+   <name>Zeppelin: Spark2 Shims</name>
+ 
+   <properties>
+-    <scala.binary.version>2.11</scala.binary.version>
++    <scala.binary.version>2.12</scala.binary.version>
+     <spark.version>2.1.2</spark.version>
+   </properties>
+ 
+diff --git a/zeppelin-display/pom.xml b/zeppelin-display/pom.xml
+index 4bf0c58d3..7c5c05b25 100644
+--- a/zeppelin-display/pom.xml
++++ b/zeppelin-display/pom.xml
+@@ -37,6 +37,7 @@
+     <plugin.failsafe.version>2.16</plugin.failsafe.version>
+     <plugin.scala.version>2.15.2</plugin.scala.version>
+     <plugin.scalatest.version>1.0</plugin.scalatest.version>
++    <scala.compat.version>2.12</scala.compat.version>
+   </properties>
+ 
+   <dependencyManagement>
+@@ -55,6 +56,12 @@
+         <scope>provided</scope>
+       </dependency>
+ 
++      <dependency>
++        <groupId>org.scala-lang.modules</groupId>
++        <artifactId>scala-xml_${scala.compat.version}</artifactId>
++        <version>1.1.1</version>
++      </dependency>
++
+       <dependency>
+         <groupId>org.scala-lang</groupId>
+         <artifactId>scalap</artifactId>
+@@ -97,12 +104,12 @@
+ 
+   <profiles>
+     <profile>
+-      <id>scala-2.11</id>
++      <id>scala-2.12</id>
+       <dependencies>
+         <dependency>
+           <groupId>org.scala-lang.modules</groupId>
+-          <artifactId>scala-xml_${scala.binary.version}</artifactId>
+-          <version>1.0.2</version>
++          <artifactId>scala-xml_${scala.compat.version}</artifactId>
++          <version>1.1.1</version>
+           <scope>provided</scope>
+         </dependency>
+       </dependencies>
+diff --git a/zeppelin-distribution/pom.xml b/zeppelin-distribution/pom.xml
+index f71838498..138bdf3c7 100644
+--- a/zeppelin-distribution/pom.xml
++++ b/zeppelin-distribution/pom.xml
+@@ -114,7 +114,7 @@
+ 
+   <profiles>
+     <profile>
+-      <id>scala-2.11</id>
++      <id>scala-2.12</id>
+       <dependencyManagement>
+         <dependencies>
+           <dependency>
+diff --git a/zeppelin-server/pom.xml b/zeppelin-server/pom.xml
+index e2ab8545a..a96a392f5 100644
+--- a/zeppelin-server/pom.xml
++++ b/zeppelin-server/pom.xml
+@@ -489,7 +489,7 @@
+ 
+   <profiles>
+     <profile>
+-      <id>scala-2.11</id>
++      <id>scala-2.12</id>
+       <dependencyManagement>
+         <dependencies>
+           <dependency>
