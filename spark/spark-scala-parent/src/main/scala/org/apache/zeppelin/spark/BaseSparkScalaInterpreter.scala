@@ -31,7 +31,7 @@ import org.apache.zeppelin.interpreter.{InterpreterContext, InterpreterResult}
 import org.slf4j.{Logger, LoggerFactory}
 
 import scala.collection.JavaConverters._
-import scala.tools.nsc.interpreter.Completion.ScalaCompleter
+//import scala.tools.nsc.interpreter.Completion.ScalaCompleter
 import scala.util.control.NonFatal
 
 /**
@@ -59,7 +59,7 @@ abstract class BaseSparkScalaInterpreter(val conf: SparkConf,
 
   protected var sparkUrl: String = _
 
-  protected var scalaCompleter: ScalaCompleter = _
+  //protected var scalaCompleter: ScalaCompleter = _
 
   protected val interpreterOutput: InterpreterOutputStream
 
@@ -139,13 +139,13 @@ abstract class BaseSparkScalaInterpreter(val conf: SparkConf,
 
   protected def scalaInterpret(code: String): scala.tools.nsc.interpreter.IR.Result
 
-  protected def completion(buf: String,
-                           cursor: Int,
-                           context: InterpreterContext): java.util.List[InterpreterCompletion] = {
-    val completions = scalaCompleter.complete(buf.substring(0, cursor), cursor).candidates
-      .map(e => new InterpreterCompletion(e, e, null))
-    scala.collection.JavaConversions.seqAsJavaList(completions)
-  }
+  //protected def completion(buf: String,
+  //                         cursor: Int,
+  //                         context: InterpreterContext): java.util.List[InterpreterCompletion] = {
+    //val completions = scalaCompleter.complete(buf.substring(0, cursor), cursor).candidates
+    //  .map(e => new InterpreterCompletion(e, e, null))
+    //scala.collection.JavaConversions.seqAsJavaList(completions)
+  //}
 
   protected def getProgress(jobGroup: String, context: InterpreterContext): Int = {
     JobProgressUtil.progress(sc, jobGroup)
